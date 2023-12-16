@@ -11,12 +11,14 @@ export default function Navbar() {
   };
 
   return (
-    <div className="w-full border-b">
+    <div className="w-full border-b sticky top-0">
       <div className="maincol flex justify-between py-4 text-lg">
         <div className="text-blue-500 font-semibold">Issue Tracker</div>
         <div className="items-center gap-5 hidden md:flex">
-          <div>Dashboard</div>
-          <Link href={"/issues"}>Issues</Link>
+          <div className="font-light">Dashboard</div>
+          <Link href={"/issues"} className="font-light">
+            Issues
+          </Link>
         </div>
         <div className="md:hidden">
           <Menu className="cursor-pointer" onClick={toggleMobileNav} />
