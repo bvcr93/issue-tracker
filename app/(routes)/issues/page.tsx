@@ -1,5 +1,9 @@
+import { deleteIssueAction } from "@/app/actions/actions";
 import { Button } from "@/components/ui/button";
+import { IssueItem } from "@/components/ui/issue-item";
 import { db } from "@/lib/db";
+import { Issue } from "@prisma/client";
+import { Trash } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -16,15 +20,9 @@ export default async function IssuesPage() {
       {issues.map((issue) => (
         <div key={issue.id} className="mb-4">
           <Link href={`/issues/${issue.id}`}>
-            <div
-              className={`p-4 rounded ${
-                issue.status === "OPEN"
-                  ? "bg-green-200 text-green-800"
-                  : "bg-gray-200 text-gray-800"
-              } shadow-md border border-gray-300 hover:bg-emerald-200 duration-300 cursor`}
-            >
-              <h2 className="text-lg font-semibold mb-2">{issue.title}</h2>
-              <p>{issue.description}</p>
+            <IssueItem issue={issue} />
+            <div>
+              <Trash className="mt-3 text-black" />
             </div>
           </Link>
         </div>

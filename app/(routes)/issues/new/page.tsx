@@ -4,23 +4,16 @@ import { createIssueAction } from "@/app/actions/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import axios from "axios";
 import "easymde/dist/easymde.min.css";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useFormStatus } from "react-dom";
-import { Controller, useForm } from "react-hook-form";
-import SimpleMDE from "react-simplemde-editor";
 interface IssueForm {
   title: string;
   description: string;
 }
 
 export default function NewIssuePage() {
-  const { register, control, handleSubmit } = useForm<IssueForm>();
   const router = useRouter();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [description, setDescription] = useState("");
   async function createIssue(data: FormData) {
     const title = data.get("title") as string;
     const description = data.get("description") as string;

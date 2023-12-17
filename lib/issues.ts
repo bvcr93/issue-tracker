@@ -18,5 +18,24 @@ export async function createIssue(title: string, description: string) {
       },
     });
     return { issue };
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function deleteIssue(id: string) {
+  const existingIssue = await db.issue.findUnique({
+    where: { id },
+  });
+  if (!existingIssue) {
+    throw new Error("Issue not found!");
+  }
+  try {
+    const issue = await db.issue.delete({
+      where: { id },
+    });
+    return { issue };
+  } catch (error) {
+    console.log(error);
+  }
 }
