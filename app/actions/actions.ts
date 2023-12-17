@@ -1,6 +1,6 @@
 "use server";
 
-import { createIssue, deleteIssue } from "@/lib/issues";
+import { createIssue, deleteIssue, closeIssueStatus } from "@/lib/issues";
 import { revalidatePath } from "next/cache";
 
 export async function createIssueAction(title: string, description: string) {
@@ -11,4 +11,12 @@ export async function createIssueAction(title: string, description: string) {
 export async function deleteIssueAction(id: string) {
   await deleteIssue(id);
   revalidatePath("/issues");
+}
+export async function closeIssueStatusAction(id: string) {
+  try {
+    await closeIssueStatus(id);
+    revalidatePath("/issues");
+  } catch (error) {
+    console.log(error);
+  }
 }

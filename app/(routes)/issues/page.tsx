@@ -1,11 +1,8 @@
-import { deleteIssueAction } from "@/app/actions/actions";
+// IssuesPage.tsx
 import { Button } from "@/components/ui/button";
 import { IssueItem } from "@/components/ui/issue-item";
 import { db } from "@/lib/db";
-import { Issue } from "@prisma/client";
-import { Trash } from "lucide-react";
 import Link from "next/link";
-import React from "react";
 
 export default async function IssuesPage() {
   const issues = await db.issue.findMany();
@@ -19,12 +16,12 @@ export default async function IssuesPage() {
       </div>
       {issues.map((issue) => (
         <div key={issue.id} className="mb-4">
-          <Link href={`/issues/${issue.id}`}>
-            <IssueItem issue={issue} />
-            <div>
-              <Trash className="mt-3 text-black" />
-            </div>
-          </Link>
+          <div>
+            <IssueItem {...issue} />
+            <Button variant={"outline"} className="mt-5 w-full">
+              See
+            </Button>
+          </div>
         </div>
       ))}
     </div>

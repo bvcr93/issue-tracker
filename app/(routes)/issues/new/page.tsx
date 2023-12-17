@@ -7,10 +7,6 @@ import { Textarea } from "@/components/ui/textarea";
 import "easymde/dist/easymde.min.css";
 import { useRouter } from "next/navigation";
 import { useFormStatus } from "react-dom";
-interface IssueForm {
-  title: string;
-  description: string;
-}
 
 export default function NewIssuePage() {
   const router = useRouter();

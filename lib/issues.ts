@@ -39,3 +39,27 @@ export async function deleteIssue(id: string) {
     console.log(error);
   }
 }
+export async function closeIssueStatus(id: string) {
+  try {
+    const existingIssue = await db.issue.findUnique({
+      where: { id },
+    });
+    if (!existingIssue) {
+      throw new Error("issue not found");
+    }
+    if (existingIssue.status === "CLOSED") {
+      throw new Error("Issue is already closed!");
+    }
+    const updatedIssue = await db.issue.update({
+      where: { id },
+      data: {
+        status: "CLOSED",
+      },
+    });
+    return { issue: updatedIssue };
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
