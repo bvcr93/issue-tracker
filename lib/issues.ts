@@ -1,5 +1,5 @@
 import { db } from "./db";
-
+import { Status } from "@prisma/client";
 export async function getIssues() {
   try {
     const issues = await db.issue.findMany();
@@ -39,27 +39,29 @@ export async function deleteIssue(id: string) {
     console.log(error);
   }
 }
-export async function closeIssueStatus(id: string) {
+export async function toggleIssueStatus(id: string) {
   try {
     const existingIssue = await db.issue.findUnique({
       where: { id },
     });
+
     if (!existingIssue) {
-      throw new Error("issue not found");
+      throw new Error("Issue not found");
     }
+
+    let newStatus = "CLOSED";
     if (existingIssue.status === "CLOSED") {
-      throw new Error("Issue is already closed!");
+      newStatus = "OPEN";
     }
     const updatedIssue = await db.issue.update({
       where: { id },
       data: {
-        status: "CLOSED",
+        status: newStatus as Status,
       },
     });
+
     return { issue: updatedIssue };
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
-
-

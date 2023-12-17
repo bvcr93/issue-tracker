@@ -1,11 +1,12 @@
 "use client";
 
 import {
-  closeIssueStatusAction,
+  togleIssueStatusAction,
   deleteIssueAction,
 } from "@/app/actions/actions";
 import { Button } from "./button";
 import { Trash } from "lucide-react";
+import { useToast } from "./use-toast";
 
 interface IssueItemProps {
   title: string;
@@ -17,14 +18,22 @@ interface IssueItemProps {
 }
 
 export function IssueItem({ title, description, id, status }: IssueItemProps) {
-  async function handleDeleteIssue() {
-    await deleteIssueAction(id);
-  }
+  const { toast } = useToast();
 
-  async function handleCloseIssueStatusAction() {
-    await closeIssueStatusAction(id);
-  }
-  const statusColor = status === "CLOSED" ? "bg-red-200" : "bg-green-200";
+  const isClosed = status === "CLOSED";
+  const statusColor = isClosed ? "bg-red-200" : "bg-green-200";
+
+  const handleDeleteIssue = async () => {
+    await deleteIssueAction(id);
+  };
+
+  const handleCloseIssueStatusAction = async () => {
+    await togleIssueStatusAction(id);
+    toast({
+      title: isClosed ? "Issue opened!" : "Issue closed!",
+    });
+  };
+
   return (
     <div
       className={`w-full mt-5 ${statusColor}`}
@@ -42,7 +51,7 @@ export function IssueItem({ title, description, id, status }: IssueItemProps) {
             variant={"outline"}
             onClick={handleCloseIssueStatusAction}
           >
-            Close issue
+            {isClosed ? "Open issue" : "Close issue"}
           </Button>
         </div>
       </div>
