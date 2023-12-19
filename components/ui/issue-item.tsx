@@ -1,11 +1,8 @@
 "use client";
 
-import {
-  togleIssueStatusAction,
-  deleteIssueAction,
-} from "@/app/actions/actions";
+import { togleIssueStatusAction } from "@/app/actions/actions";
+import Link from "next/link";
 import { Button } from "./button";
-import { Trash } from "lucide-react";
 import { useToast } from "./use-toast";
 
 interface IssueItemProps {
@@ -23,10 +20,6 @@ export function IssueItem({ title, description, id, status }: IssueItemProps) {
   const isClosed = status === "CLOSED";
   const statusColor = isClosed ? "bg-red-200" : "bg-green-200";
 
-  const handleDeleteIssue = async () => {
-    await deleteIssueAction(id);
-  };
-
   const handleCloseIssueStatusAction = async () => {
     await togleIssueStatusAction(id);
     toast({
@@ -41,11 +34,14 @@ export function IssueItem({ title, description, id, status }: IssueItemProps) {
     >
       <div className="w-full flex justify-between px-5 items-center py-2 duration-300rounded-lg shadow-lg">
         <div>
-          <h2 className="text-lg font-semibold mb-2">{title}</h2>
+          <Link href={`/issues/${id}`}>
+            <h2 className="text-lg font-semibold mb-2 hover:text-indigo-500">
+              {title}
+            </h2>
+          </Link>
           <p>{description}</p>
         </div>
         <div className="flex items-center gap-5">
-          <Trash onClick={handleDeleteIssue} className="cursor-pointer" />
           <Button
             size={"sm"}
             variant={"outline"}

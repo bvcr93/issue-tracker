@@ -1,12 +1,12 @@
-import { Button } from "@/components/ui/button";
+import { IssueItem } from "@/components/ui/issue-item";
 import { db } from "@/lib/db";
-import { Issue } from "@prisma/client";
 
 interface IssueDetailsProps {
   params: {
     slug: string;
   };
 }
+
 export default async function IssueDetailsPage({
   params: { slug },
 }: IssueDetailsProps) {
@@ -16,24 +16,13 @@ export default async function IssueDetailsPage({
     },
   });
 
+  if (!issue) {
+    return <div>Issue not found</div>;
+  }
+
   return (
     <div className="maincol mt-10">
-      <IssueItem issue={issue} />
-    </div>
-  );
-}
-
-interface IssueItemProps {
-  issue: Issue | null;
-}
-
-function IssueItem({ issue }: IssueItemProps) {
-  return (
-    <div className="w-full">
-      <div className="border flex flex-col shadow-md text-center md:w-1/2 mx-auto py-3">
-        <h1> {issue?.title}</h1>
-        <p>{issue?.description}</p>
-      </div>
+      <IssueItem {...issue} />
     </div>
   );
 }
