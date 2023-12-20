@@ -63,7 +63,7 @@ function BarChart({
             {
               label: "Issues",
               backgroundColor: ["#bec3ff", "#ffafaf"],
-              borderColor: ["#7f92fc", "#b62929"], // Add darker border colors here
+              borderColor: ["#7f92fc", "#b62929"],
               borderWidth: 2,
               data: [openIssuesCount, closedIssuesCount],
             },

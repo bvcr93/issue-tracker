@@ -12,7 +12,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className="w-full border-b sticky top-0">
+    <div className="w-full border-b sticky top-0 bg-white">
       <div className="maincol flex justify-between py-4 text-lg">
         <Link href={"/"} className="text-blue-500 font-semibold flex gap-5 items-center">
           Issue Tracker

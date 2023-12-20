@@ -16,8 +16,8 @@ export default async function IssuesPage() {
     }
   });
   return (
-    <div className="maincol md:flex gap-10 grid g">
-      <div className="flex flex-col w-1/2">
+    <div className="maincol md:flex gap-10 w-full">
+      <div className="flex flex-col md:w-1/2">
         <h1 className="mt-20 text-3xl">Latest issues</h1>
         <div className="flex mt-10 gap-5">
           <Link
