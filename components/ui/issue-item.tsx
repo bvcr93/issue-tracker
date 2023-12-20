@@ -6,7 +6,7 @@ import { Button } from "./button";
 import { useToast } from "./use-toast";
 import { useFormStatus } from "react-dom";
 import { ReactNode } from "react";
-
+import { useState } from "react";
 interface IssueItemProps {
   title: string;
   id: string;
@@ -61,7 +61,7 @@ export function IssueItem({ title, description, id, status }: IssueItemProps) {
 }
 
 type ToggleButtonProps = {
-  children: ReactNode;
+  children: React.ReactNode;
   size?: "default" | "sm" | "lg" | "icon" | null;
   variant?:
     | "link"
@@ -75,19 +75,27 @@ type ToggleButtonProps = {
 };
 
 function ToggleButton({ children, size, variant, onClick }: ToggleButtonProps) {
-  const { pending } = useFormStatus();
+  const [loading, setLoading] = useState(false);
 
-  let buttonText: string;
-
-  if (pending) {
-    buttonText = "Processing...";
-  } else {
-    buttonText = children as string; // Assume children is always a string
-  }
+  const handleClick = async () => {
+    try {
+      setLoading(true);
+      await onClick?.(); // Assuming onClick is optional
+    } catch (error) {
+      console.error("Error occurred:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <Button disabled={pending} size={size} variant={variant} onClick={onClick}>
-      {buttonText}
+    <Button
+      disabled={loading}
+      size={size}
+      variant={variant}
+      onClick={handleClick}
+    >
+      {loading ? "Processing..." : children}
     </Button>
   );
 }
