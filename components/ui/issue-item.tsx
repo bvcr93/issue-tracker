@@ -4,6 +4,8 @@ import { togleIssueStatusAction } from "@/app/actions/actions";
 import Link from "next/link";
 import { Button } from "./button";
 import { useToast } from "./use-toast";
+import { useFormStatus } from "react-dom";
+import { ReactNode } from "react";
 
 interface IssueItemProps {
   title: string;
@@ -20,7 +22,7 @@ export function IssueItem({ title, description, id, status }: IssueItemProps) {
   const isClosed = status === "CLOSED";
   const statusColor = isClosed ? "bg-red-200" : "bg-green-200";
 
-  const handleCloseIssueStatusAction = async () => {
+  const handleToggleIssueStatus = async () => {
     await togleIssueStatusAction(id);
     toast({
       title: isClosed ? "Issue opened!" : "Issue closed!",
@@ -42,18 +44,50 @@ export function IssueItem({ title, description, id, status }: IssueItemProps) {
           <p>{description}</p>
         </div>
         <div className="flex items-center gap-5">
-          <Button
+          <ToggleButton
             size={"sm"}
             variant={"outline"}
-            onClick={handleCloseIssueStatusAction}
+            onClick={handleToggleIssueStatus}
           >
             {isClosed ? "Open issue" : "Close issue"}
-          </Button>
+          </ToggleButton>
           <Button size={"sm"} variant={"ghost"}>
             Edit
           </Button>
         </div>
       </div>
     </div>
+  );
+}
+
+type ToggleButtonProps = {
+  children: ReactNode;
+  size?: "default" | "sm" | "lg" | "icon" | null;
+  variant?:
+    | "link"
+    | "default"
+    | "destructive"
+    | "outline"
+    | "secondary"
+    | "ghost"
+    | null;
+  onClick?: () => Promise<void>;
+};
+
+function ToggleButton({ children, size, variant, onClick }: ToggleButtonProps) {
+  const { pending } = useFormStatus();
+
+  let buttonText: string;
+
+  if (pending) {
+    buttonText = "Processing...";
+  } else {
+    buttonText = children as string; // Assume children is always a string
+  }
+
+  return (
+    <Button disabled={pending} size={size} variant={variant} onClick={onClick}>
+      {buttonText}
+    </Button>
   );
 }

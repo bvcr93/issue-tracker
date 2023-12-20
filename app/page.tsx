@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import BarChart from "@/components/bar-chart";
+import BarChart from "@/components/ui/bar-chart";
 import { db } from "@/lib/db";
 
 const cardData = [
@@ -53,7 +53,7 @@ export default async function Home() {
         ))}
       </div>
       <div className="w-full h-full mt-20">
-        <BarChart issues={issues} indexAxis="x"/>
+        <BarChart issues={issues} indexAxis="x" />
       </div>
     </main>
   );

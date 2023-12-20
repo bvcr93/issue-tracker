@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { IssueItem } from "@/components/ui/issue-item";
 import { db } from "@/lib/db";
 import Link from "next/link";
-import BarChart from "@/components/bar-chart";
+import BarChart from "@/components/ui/bar-chart";
 export default async function IssuesPage() {
   const issues = await db.issue.findMany();
   let openIssuesCount = 0;
