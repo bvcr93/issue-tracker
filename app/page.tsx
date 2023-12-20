@@ -1,10 +1,60 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import BarChart from "@/components/bar-chart";
+import { db } from "@/lib/db";
 
-export default function Home() {
+const cardData = [
+  {
+    title: "Bug Reports",
+    description: "Report and track software bugs.",
+    buttonText: "Explore",
+  },
+  {
+    title: "Community Discussions",
+    description: "Join discussions and share ideas.",
+    buttonText: "Explore",
+  },
+];
+
+export default async function Home() {
+  const issues = await db.issue.findMany();
   return (
-    <main className="maincol flex items-center justify-center h-screen text-blue-500 text-5xl">
-      Issue tracker
+    <main className="maincol flex flex-col items-center justify-center h-screen text-blue-500">
+      {/* Heading */}
+      <h1 className="text-5xl my-32">Issue Tracker</h1>
+
+      {/* Cards */}
+      <div className=" md:flex grid grid-cols-1 gap-8 place-items-center">
+        {cardData.map((card, index) => (
+          <Card
+            key={index}
+            className="w-[500px] border p-4 rounded-xl shadow-md hover:shadow-lg"
+          >
+            <CardHeader>
+              <CardTitle className="text-xl mb-2">{card.title}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <CardDescription className="text-gray-600">
+                {card.description}
+              </CardDescription>
+            </CardContent>
+            <CardFooter>
+              <Button className="mt-4">{card.buttonText}</Button>
+            </CardFooter>
+          </Card>
+        ))}
+      </div>
+      <div className="w-full h-full mt-20">
+        <BarChart issues={issues} indexAxis="x"/>
+      </div>
     </main>
   );
 }

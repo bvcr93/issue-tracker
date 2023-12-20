@@ -49,6 +49,9 @@ export function IssueItem({ title, description, id, status }: IssueItemProps) {
           >
             {isClosed ? "Open issue" : "Close issue"}
           </Button>
+          <Button size={"sm"} variant={"ghost"}>
+            Edit
+          </Button>
         </div>
       </div>
     </div>
