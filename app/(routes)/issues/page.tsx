@@ -49,7 +49,7 @@ export default async function IssuesPage() {
           </div>
         ))}
       </div>
-      <div className="flex flex-col w-1/2 border mt-32">
+      <div className="flex-col w-1/2 border mt-32 hidden md:flex">
         <BarChart issues={issues} indexAxis="y" />
       </div>
     </div>

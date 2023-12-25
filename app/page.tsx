@@ -28,11 +28,7 @@ export default async function Home() {
   const issues = await db.issue.findMany();
   return (
     <main className="maincol flex flex-col items-center justify-center h-screen text-blue-500">
-      {/* Heading */}
-      <h1 className="text-5xl my-32">Issue Tracker</h1>
-
-      {/* Cards */}
-      <div className=" md:flex grid grid-cols-1 gap-8 place-items-center">
+      <div className=" md:flex grid grid-cols-1 gap-8 place-items-center mt-32">
         {cardData.map((card, index) => (
           <Card
             key={index}

@@ -65,3 +65,30 @@ export async function toggleIssueStatus(id: string) {
     console.error(error);
   }
 }
+
+export async function editIssue(
+  id: string,
+  newData: { title?: string; description?: string; status?: Status }
+) {
+  try {
+    const existingIssue = await db.issue.findUnique({
+      where: { id },
+    });
+
+    if (!existingIssue) {
+      throw new Error("Issue not found");
+    }
+    const updatedIssue = await db.issue.update({
+      where: { id },
+      data: {
+        title: newData.title || existingIssue.title,
+        description: newData.description || existingIssue.description,
+        status: newData.status || existingIssue.status,
+      },
+    });
+
+    return { issue: updatedIssue };
+  } catch (error) {
+    console.error(error);
+  }
+}

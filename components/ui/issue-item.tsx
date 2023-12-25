@@ -2,11 +2,11 @@
 
 import { togleIssueStatusAction } from "@/app/actions/actions";
 import Link from "next/link";
+import { useState } from "react";
 import { Button } from "./button";
 import { useToast } from "./use-toast";
-import { useFormStatus } from "react-dom";
-import { ReactNode } from "react";
-import { useState } from "react";
+import { Edit } from "lucide-react";
+
 interface IssueItemProps {
   title: string;
   id: string;
@@ -28,7 +28,7 @@ export function IssueItem({ title, description, id, status }: IssueItemProps) {
       title: isClosed ? "Issue opened!" : "Issue closed!",
     });
   };
-
+  async function handleEditIssue() {}
   return (
     <div
       className={`w-full mt-5 ${statusColor}`}
@@ -37,11 +37,11 @@ export function IssueItem({ title, description, id, status }: IssueItemProps) {
       <div className="w-full flex justify-between px-5 items-center py-2 duration-300rounded-lg shadow-lg">
         <div>
           <Link href={`/issues/${id}`}>
-            <h2 className="text-lg font-semibold mb-2 hover:text-indigo-500">
+            <h2 className="text-lg font-semibold mb-2 hover:text-indigo-500 mt-4 tracking-wide">
               {title}
             </h2>
           </Link>
-          <p>{description}</p>
+          <p className="pr-5 py-2 text-slate-700 font-thin">{description}</p>
         </div>
         <div className="flex items-center gap-5">
           <ToggleButton
@@ -51,8 +51,12 @@ export function IssueItem({ title, description, id, status }: IssueItemProps) {
           >
             {isClosed ? "Open issue" : "Close issue"}
           </ToggleButton>
-          <Button size={"sm"} variant={"ghost"}>
-            Edit
+          <Button
+            size={"sm"}
+            variant={"ghost"}
+            className="hover:bg-transparent"
+          >
+            <Edit onClick={handleEditIssue} />
           </Button>
         </div>
       </div>
@@ -80,7 +84,7 @@ function ToggleButton({ children, size, variant, onClick }: ToggleButtonProps) {
   const handleClick = async () => {
     try {
       setLoading(true);
-      await onClick?.(); // Assuming onClick is optional
+      await onClick?.();
     } catch (error) {
       console.error("Error occurred:", error);
     } finally {

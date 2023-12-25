@@ -12,6 +12,7 @@
     "@prisma/client": "^5.7.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-toast": "^1.1.5",
+    "@tailwindcss/line-clamp": "^0.4.4",
     "axios": "^1.6.2",
     "chart.js": "^4.4.1",
     "class-variance-authority": "^0.7.0",
