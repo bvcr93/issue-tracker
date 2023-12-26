@@ -1,8 +1,6 @@
 import { Issue } from "@prisma/client";
-import React from "react";
-import { IssueItem } from "./issue-item";
 import Link from "next/link";
-import { Button } from "./button";
+import { IssueItem } from "./issue-item";
 interface IssuesDisplayProps {
   issues: Issue[];
 }

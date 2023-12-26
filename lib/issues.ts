@@ -66,7 +66,7 @@ export async function toggleIssueStatus(id: string) {
   }
 }
 
-export async function editIssue(
+export async function updateIssue(
   id: string,
   newData: { title?: string; description?: string; status?: Status }
 ) {

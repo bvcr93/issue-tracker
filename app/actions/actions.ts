@@ -4,7 +4,7 @@ import {
   createIssue,
   deleteIssue,
   toggleIssueStatus,
-  editIssue,
+  updateIssue,
 } from "@/lib/issues";
 import { revalidatePath } from "next/cache";
 
@@ -28,12 +28,13 @@ export async function togleIssueStatusAction(id: string) {
 
 export async function updateIssueAction(
   id: string,
-  newData: { title?: string; description?: string; status?: Status }
+  newData: { title?: string; description?: string; status?: Status | undefined }
 ) {
   try {
-    await editIssue(id, newData);
+    await updateIssue(id, newData);
     revalidatePath("/issues");
   } catch (error) {
     console.error(error);
   }
 }
+
