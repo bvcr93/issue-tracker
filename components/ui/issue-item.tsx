@@ -12,6 +12,7 @@ import { Edit, X } from "lucide-react";
 import { Input } from "./input";
 import { Textarea } from "./textarea";
 import { Status } from "@prisma/client";
+import useEdit from "@/app/hooks/useEdit";
 
 interface IssueItemProps {
   title: string;

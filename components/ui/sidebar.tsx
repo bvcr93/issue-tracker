@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { LayoutDashboard, MessageSquare, Settings } from "lucide-react";
+import { MessageSquare, Settings } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 export default function IssuesSidebar() {
@@ -15,12 +15,12 @@ export default function IssuesSidebar() {
       label: "Settings",
       icon: Settings,
       color: "text-pink-700",
-      href: "/settings",
+      href: "/issues/settings",
     },
   ];
   const pathname = usePathname();
   return (
-    <div className="space-y-4 py-4 flex flex-col h-full mt-20 bg-white">
+    <div className="space-y-4 py-4 flex flex-col h-full mt-12 bg-white">
       <div className="px-3 py-2 flex-1">
         <div className="space-y-1">
           {routes.map((route) => (
