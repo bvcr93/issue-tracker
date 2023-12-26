@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -8,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
 import BarChart from "@/components/ui/bar-chart";
 import { db } from "@/lib/db";
 
@@ -28,11 +28,11 @@ export default async function Home() {
   const issues = await db.issue.findMany();
   return (
     <main className="maincol flex flex-col items-center justify-center h-screen text-blue-500">
-      <div className=" md:flex grid grid-cols-1 gap-8 place-items-center mt-32">
+      <div className=" md:flex grid grid-cols-1 gap-8 place-items-center md:mt-32 w-full">
         {cardData.map((card, index) => (
           <Card
             key={index}
-            className="w-[500px] border p-4 rounded-xl shadow-md hover:shadow-lg"
+            className="w-full border p-4 rounded-xl shadow-md hover:shadow-lg"
           >
             <CardHeader>
               <CardTitle className="text-xl mb-2">{card.title}</CardTitle>
@@ -48,7 +48,7 @@ export default async function Home() {
           </Card>
         ))}
       </div>
-      <div className="w-full h-full mt-20">
+      <div className="md:h-full w-full mt-20">
         <BarChart issues={issues} indexAxis="x" />
       </div>
     </main>

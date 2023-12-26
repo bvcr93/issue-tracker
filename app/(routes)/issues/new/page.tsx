@@ -4,6 +4,7 @@ import { createIssueAction } from "@/app/actions/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "@/components/ui/use-toast";
 import "easymde/dist/easymde.min.css";
 import { useRouter } from "next/navigation";
 import { useFormStatus } from "react-dom";
@@ -14,6 +15,9 @@ export default function NewIssuePage() {
     const title = data.get("title") as string;
     const description = data.get("description") as string;
     await createIssueAction(title, description);
+    toast({
+      title: "New issue created!",
+    });
     router.push("/issues");
   }
   return (

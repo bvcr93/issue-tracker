@@ -31,7 +31,7 @@ export default function Navbar() {
 
       {/* Mobile Sidebar */}
       {isMobileNavOpen && (
-        <div className="md:hidden fixed top-0 left-0 h-full w-64 bg-white shadow-xl">
+        <div className="md:hidden fixed top-0 left-0 h-full w-64 bg-white shadow-xl z-50">
           <div className="flex flex-col items-center py-4 mt-10">
             <div>Dashboard</div>
             <Link href={"/issues"}>Issues</Link>
@@ -42,7 +42,7 @@ export default function Navbar() {
       {/* Overlay for closing the sidebar */}
       {isMobileNavOpen && (
         <div
-          className="md:hidden fixed top-0 left-0 h-full w-full"
+          className="md:hidden fixed top-0 left-0 h-full w-full z-50"
           onClick={toggleMobileNav}
         ></div>
       )}
