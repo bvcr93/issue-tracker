@@ -17,7 +17,7 @@ import {
 
 export default function DashboardPage() {
   return (
-    <div className="flex flex-col h-screen w-full overflow-hidden">
+    <div className="flex flex-col min-h-screen w-full overflow-hidden">
       <header className="flex items-center h-16 px-4 border-b md:px-6">
         <nav className="flex gap-6 text-lg font-medium md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
           <Link
@@ -80,7 +80,7 @@ export default function DashboardPage() {
             </CardContent>
           </Card>
         </div>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2 grid-cols-1">
           <div className="h-full">
             <Card>
               <CardHeader className="pb-2">

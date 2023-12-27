@@ -30,8 +30,11 @@ const cardData = [
 export default async function Home() {
   const issues = await db.issue.findMany();
   return (
-    <main className="maincol flex flex-col items-center justify-center min-h-screen text-blue-500">
-      <div className=" md:flex grid grid-cols-1 gap-8 place-items-center w-full">
+    <main className="maincol flex flex-col items-center min-h-screen">
+      <div className="mt-72 text-5xl font-semibold tracking-wider">
+        Issue Tracker
+      </div>
+      <div className="md:flex justify-between w-full mt-20 gap-10 grid grid-cols-1">
         {cardData.map((card, index) => (
           <Card
             key={index}
@@ -53,8 +56,11 @@ export default async function Home() {
           </Card>
         ))}
       </div>
-      <div className="md:h-full w-full mt-20">
-        <BarChart issues={issues} indexAxis="x" />
+      <div className="flex justify-between w-full mt-20">
+        <div className="text-4xl w-1/2">
+          Create your own issues and mark them as complete or open
+        </div>
+        
       </div>
     </main>
   );

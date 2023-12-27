@@ -13,6 +13,14 @@ import { Input } from "./input";
 import { Textarea } from "./textarea";
 import { Status } from "@prisma/client";
 import useEdit from "@/app/hooks/useEdit";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 interface IssueItemProps {
   title: string;
@@ -23,7 +31,13 @@ interface IssueItemProps {
   updatedAt: Date;
 }
 
-export function IssueItem({ title, description, id, status }: IssueItemProps) {
+export function IssueItem({
+  title,
+  description,
+  id,
+  status,
+  createdAt,
+}: IssueItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(title);
   const [editedDescription, setEditedDescription] = useState(description);
@@ -63,48 +77,45 @@ export function IssueItem({ title, description, id, status }: IssueItemProps) {
   };
 
   return (
-    <div className={`w-full mt-5 ${statusColor}`}>
-      <div className="w-full md:flex justify-between px-5 items-center py-2 duration-300 rounded-lg shadow-lg">
-        <div>
-          <Link href={`/issues/${id}`}>
-            <h2 className="text-lg font-semibold mb-2 hover:text-indigo-500 mt-4 tracking-wide">
-              {title}
-            </h2>
-          </Link>
-          <p className="pr-5 py-2 text-slate-700 font-thin">{description}</p>
-        </div>
-        <div className="flex items-center gap-5 md:mt-0 mt-5">
-          {isEditing ? (
-            <Button size={"sm"} variant={"ghost"} onClick={handleSaveEdit}>
-              Save
-            </Button>
-          ) : (
-            <ToggleButton
-              size={"sm"}
-              variant={"outline"}
-              onClick={handleToggleIssueStatus}
+    <div className={`w-full bg-white rounded-lg mt-5 shadow-lg`}>
+      <Card>
+        <CardHeader>
+          <CardTitle>{title}</CardTitle>
+          <CardDescription className="line clamp-3 truncate">
+            {description}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p>
+            Status:{" "}
+            <span
+              className={`${
+                status === "CLOSED" ? "text-green-500" : "text-red-500"
+              }`}
             >
-              {isClosed ? "Open issue" : "Close issue"}
-            </ToggleButton>
-          )}
-          <Button
+              {" "}
+              {status}
+            </span>
+          </p>
+        </CardContent>
+        <CardFooter className="flex justify-between w-full">
+          <p className="font-light text-slate-600">
+            Created at:{" "}
+            {new Date(createdAt).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </p>
+
+          <ToggleButton
             size={"sm"}
-            variant={"ghost"}
-            className="hover:bg-transparent"
-            onClick={handleEditIssue}
+            onClick={handleToggleIssueStatus}
           >
-            {isEditing ? <X /> : <Edit />}
-          </Button>
-        </div>
-      </div>
-      {isEditing && (
-        <EditArea
-          editedTitle={editedTitle}
-          setEditedTitle={setEditedTitle}
-          editedDescription={editedDescription}
-          setEditedDescription={setEditedDescription}
-        />
-      )}
+            {isClosed ? "Open issue" : "Close issue"}
+          </ToggleButton>
+        </CardFooter>
+      </Card>
     </div>
   );
 }
@@ -123,7 +134,7 @@ function EditArea({
   setEditedDescription,
 }: EditAreaProps) {
   return (
-    <div className="flex flex-col gap-10 bg-slate-100 p-5">
+    <div className="flex flex-col gap-10 bg-slate-100 p-5 h-full">
       <Input
         type="text"
         value={editedTitle}
@@ -152,7 +163,12 @@ type ToggleButtonProps = {
     | null;
   onClick?: () => Promise<void>;
 };
-function ToggleButton({ children, size, variant, onClick }: ToggleButtonProps) {
+export function ToggleButton({
+  children,
+  size,
+  variant,
+  onClick,
+}: ToggleButtonProps) {
   const [loading, setLoading] = useState(false);
 
   const handleClick = async () => {

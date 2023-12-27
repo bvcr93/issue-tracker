@@ -21,6 +21,7 @@ import { format } from "date-fns";
 import { useState } from "react";
 import { useToast } from "./use-toast";
 import { Input } from "./input";
+import { ToggleButton } from "./issue-item";
 interface IssueTableProps {
   description: string;
   status: string;
@@ -81,7 +82,7 @@ export default function IssueTable({
       setIsEditing(false);
     } catch (error) {}
   };
-  
+
   return (
     <>
       <Table className="z-0">
@@ -132,6 +133,13 @@ export default function IssueTable({
               <button className="text-indigo-500 mx-1 hover:text-indigo-700">
                 <Edit onClick={handleEditIssue} />
               </button>
+              <ToggleButton
+                size={"sm"}
+                variant={"outline"}
+                onClick={handleToggleIssueStatus}
+              >
+                {isClosed ? "Open issue" : "Close issue"}
+              </ToggleButton>
             </TableCell>
           </TableRow>
         </TableBody>

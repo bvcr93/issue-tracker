@@ -1,16 +1,6 @@
-import { Button } from "@/components/ui/button";
+import BarChart from "@/components/ui/bar-chart";
 import { IssueItem } from "@/components/ui/issue-item";
 import { db } from "@/lib/db";
-import Link from "next/link";
-import BarChart from "@/components/ui/bar-chart";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 
 export default async function IssuesPage() {
   const issues = await db.issue.findMany();
@@ -25,68 +15,20 @@ export default async function IssuesPage() {
     }
   });
   return (
-    <div className="maincol xl:flex gap-20 w-full">
-      <div className="flex flex-col lg:w-1/2">
-        <h1 className="mt-20 text-3xl">Latest issues</h1>
-        <div className="flex mt-10 gap-5">
-          <Link
-            href={"/issues/open"}
-            className="w-full h-32 border rounded shadow-md flex items-center justify-center hover:shadow-lg duration-300"
-          >
-            Open ({openIssuesCount})
-          </Link>
-          <Link
-            href={"/issues/closed"}
-            className="w-full h-32 border rounded shadow-md flex items-center justify-center hover:shadow-lg duration-300"
-          >
-            <div>Closed ({closedIssuesCount})</div>
-          </Link>
+    <div className="maincol gap-20 w-full min-h-screen">
+      <div className="flex justify-between">
+        <div className="border w-full flex justify-around items-center">
+          <div className="w-48 h-48 border">Closed</div>
+          <div className="w-48 h-48 border">Open</div>
         </div>
-        <div className="py-10 flex gap-5">
-          <Link href={"/issues/new"}>
-            <Button>New Issue</Button>
-          </Link>
-          <Link href={"/issues/all"}>
-            <Button>See All</Button>
-          </Link>
-        </div>
-        <h1 className="py-5 text-xl font-light text-slate-700">
-          Latest issues
-        </h1>
-        {issues.slice(0, 3).map((issue) => (
-          <div key={issue.id} className="mb-4 md:mt-2">
-            <IssueItem {...issue} />
-          </div>
+      </div>
+      <div className="w-full grid xl:grid-cols-3 lg:grid-cols-2  grid-cols-1 gap-10 mt-10">
+        {issues.map((issue) => (
+          <IssueItem {...issue} />
         ))}
       </div>
-      <div className="flex-col w-1/2 mt-32 hidden md:flex">
+      <div className="flex-col mt-32 flex">
         <BarChart issues={issues} indexAxis="y" />
-        {/* <div className="flex flex-col gap-10 mt-20">
-          <Card className="shadow-lg">
-            <CardHeader>
-              <CardTitle>Card Title</CardTitle>
-              <CardDescription>Card Description</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p>Card Content</p>
-            </CardContent>
-            <CardFooter>
-              <p>Card Footer</p>
-            </CardFooter>
-          </Card>
-          <Card className="shadow-lg">
-            <CardHeader>
-              <CardTitle>Card Title</CardTitle>
-              <CardDescription>Card Description</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p>Card Content</p>
-            </CardContent>
-            <CardFooter>
-              <p>Card Footer</p>
-            </CardFooter>
-          </Card>
-        </div> */}
       </div>
     </div>
   );
