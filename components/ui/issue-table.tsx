@@ -17,7 +17,7 @@ import {
   updateIssueAction,
   togleIssueStatusAction,
 } from "@/app/actions/actions";
-
+import { format } from "date-fns";
 import { useState } from "react";
 import { useToast } from "./use-toast";
 import { Input } from "./input";
@@ -81,9 +81,10 @@ export default function IssueTable({
       setIsEditing(false);
     } catch (error) {}
   };
+  
   return (
     <>
-      <Table>
+      <Table className="z-0">
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">Status</TableHead>
@@ -116,10 +117,10 @@ export default function IssueTable({
               {description.split(" ").slice(0, 5).join(" ")}...
             </TableCell>
             <TableCell className="text-right w-48">
-              {createdAt.toLocaleString()}
+              {format(createdAt, "MM/dd/yyyy HH:mm")}
             </TableCell>
             <TableCell className="text-right w-48">
-              {updatedAt.toLocaleString()}
+              {format(updatedAt, "MM/dd/yyyy HH:mm")}
             </TableCell>
             <TableCell className="text-right w-16">
               <button
@@ -149,7 +150,7 @@ export default function IssueTable({
             onChange={(e) => setEditedDescription(e.target.value)}
           />
           <div className="flex justify-end mt-4">
-            <Button size={"sm"} variant={"ghost"} onClick={handleSaveEdit}>
+            <Button size={"sm"} onClick={handleSaveEdit}>
               Save
             </Button>
           </div>

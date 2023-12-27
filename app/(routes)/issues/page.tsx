@@ -54,7 +54,7 @@ export default async function IssuesPage() {
           Latest issues
         </h1>
         {issues.slice(0, 3).map((issue) => (
-          <div key={issue.id} className="mb-4 md:mt-16">
+          <div key={issue.id} className="mb-4 md:mt-2">
             <IssueItem {...issue} />
             <Link href={`/issues/${issue.id}`}>
               {/* <Button variant={"outline"} className="mt-5 w-full">
@@ -66,7 +66,7 @@ export default async function IssuesPage() {
       </div>
       <div className="flex-col w-1/2 mt-32 hidden md:flex">
         <BarChart issues={issues} indexAxis="y" />
-        <div className="flex flex-col gap-10 mt-20">
+        {/* <div className="flex flex-col gap-10 mt-20">
           <Card className="shadow-lg">
             <CardHeader>
               <CardTitle>Card Title</CardTitle>
@@ -91,7 +91,7 @@ export default async function IssuesPage() {
               <p>Card Footer</p>
             </CardFooter>
           </Card>
-        </div>
+        </div> */}
       </div>
     </div>
   );
