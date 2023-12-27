@@ -31,7 +31,7 @@ export function IssueItem({ title, description, id, status }: IssueItemProps) {
   const { toast } = useToast();
 
   const isClosed = status === "CLOSED";
-  const statusColor = isClosed ? "bg-red-200" : "bg-green-200";
+  const statusColor = isClosed ? "bg-green-200" : "bg-red-200";
 
   const handleToggleIssueStatus = async () => {
     await togleIssueStatusAction(id);
@@ -64,7 +64,7 @@ export function IssueItem({ title, description, id, status }: IssueItemProps) {
 
   return (
     <div className={`w-full mt-5 ${statusColor}`}>
-      <div className="w-full flex justify-between px-5 items-center py-2 duration-300 rounded-lg shadow-lg">
+      <div className="w-full md:flex justify-between px-5 items-center py-2 duration-300 rounded-lg shadow-lg">
         <div>
           <Link href={`/issues/${id}`}>
             <h2 className="text-lg font-semibold mb-2 hover:text-indigo-500 mt-4 tracking-wide">
@@ -73,7 +73,7 @@ export function IssueItem({ title, description, id, status }: IssueItemProps) {
           </Link>
           <p className="pr-5 py-2 text-slate-700 font-thin">{description}</p>
         </div>
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-5 md:mt-0 mt-5">
           {isEditing ? (
             <Button size={"sm"} variant={"ghost"} onClick={handleSaveEdit}>
               Save

@@ -31,7 +31,7 @@ export default async function Home() {
   const issues = await db.issue.findMany();
   return (
     <main className="maincol flex flex-col items-center justify-center min-h-screen text-blue-500">
-      <div className=" md:flex grid grid-cols-1 gap-8 place-items-center md:mt-32 w-full">
+      <div className=" md:flex grid grid-cols-1 gap-8 place-items-center w-full">
         {cardData.map((card, index) => (
           <Card
             key={index}

@@ -25,8 +25,8 @@ export default async function IssuesPage() {
     }
   });
   return (
-    <div className="maincol md:flex gap-20 w-full">
-      <div className="flex flex-col md:w-1/2">
+    <div className="maincol xl:flex gap-20 w-full">
+      <div className="flex flex-col lg:w-1/2">
         <h1 className="mt-20 text-3xl">Latest issues</h1>
         <div className="flex mt-10 gap-5">
           <Link
@@ -56,11 +56,6 @@ export default async function IssuesPage() {
         {issues.slice(0, 3).map((issue) => (
           <div key={issue.id} className="mb-4 md:mt-2">
             <IssueItem {...issue} />
-            <Link href={`/issues/${issue.id}`}>
-              {/* <Button variant={"outline"} className="mt-5 w-full">
-                See
-              </Button> */}
-            </Link>
           </div>
         ))}
       </div>

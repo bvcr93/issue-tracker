@@ -4,6 +4,10 @@
 .maincol {
   @apply max-w-screen-2xl px-10 mx-auto;
 }
+body {
+  overflow: hidden;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
