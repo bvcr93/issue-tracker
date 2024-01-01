@@ -8,9 +8,35 @@ import { toast } from "@/components/ui/use-toast";
 import "easymde/dist/easymde.min.css";
 import { useRouter } from "next/navigation";
 import { useFormStatus } from "react-dom";
-
+import { createIssueSchema, createIssueSchemaType } from "@/lib/schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { useState } from "react";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { FormError } from "@/components/form-error";
+import { FormSuccess } from "@/components/form-success";
 export default function NewIssuePage() {
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
   const router = useRouter();
+
+  const form = useForm<z.infer<typeof createIssueSchema>>({
+    resolver: zodResolver(createIssueSchema),
+    defaultValues: {
+      title: "",
+      description: "",
+    },
+  });
+
   async function createIssue(data: FormData) {
     const title = data.get("title") as string;
     const description = data.get("description") as string;
@@ -20,42 +46,71 @@ export default function NewIssuePage() {
     });
     router.push("/issues");
   }
+
+  async function onSubmit(values: createIssueSchemaType) {
+    setError("");
+    setSuccess("");
+    try {
+      const formData = new FormData();
+      formData.append("title", values.title);
+      formData.append("description", values.description);
+
+      await createIssue(formData);
+
+      console.log(values);
+      toast({
+        title: "New issue created!",
+      });
+    } catch (error) {}
+  }
+
   return (
-    <form action={createIssue} className="maincol pt-20">
-      <h1 className="w-full text-center text-3xl text-slate-700">
-        Create new issue
-      </h1>
-      <div className="md:w-2/3 mx-auto space-y-5 mt-10">
-        <Input placeholder="Title" name="title" />
-        {/* 
-        <Controller
-          name="description"
-          control={control}
-          defaultValue="description"
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="maincol pt-20 min-h-screen"
+      >
+        <h1 className="w-full text-center text-3xl text-slate-700">
+          Create new issue
+        </h1>
+        <FormField
+          control={form.control}
+          name="title"
           render={({ field }) => (
-            <SimpleMDE
-              placeholder="Description"
-              {...field}
-              onChange={(value) => setDescription(value)}
-            />
+            <FormItem>
+              <FormLabel>Title</FormLabel>
+              <FormControl>
+                <Input placeholder="Title" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
-        /> */}
-        <Textarea
+        />
+        <FormField
+          control={form.control}
           name="description"
-          id=""
-          className="w-full h-72 border"
-          placeholder="Description"
-        ></Textarea>
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Textarea placeholder="Description" {...field} />
+              </FormControl>{" "}
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormError message={error} />
+        <FormSuccess message={success} />
         <SubmitButton />
-      </div>
-    </form>
+      </form>
+    </Form>
   );
 }
 
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" disabled={pending}>
+    <Button className="mt-5" type="submit" disabled={pending}>
       Submit New Issue
     </Button>
   );
