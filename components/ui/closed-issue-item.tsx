@@ -46,7 +46,7 @@ export default function ClosedIssueItem({
           <TableHead className="text-right">Delete</TableHead>
         </TableRow>
       </TableHeader>
-      <TableBody className="bg-slate-100">
+      <TableBody className="bg-slate-50">
         <TableRow className="">
           <TableCell className="font-medium w-72">
             {title}

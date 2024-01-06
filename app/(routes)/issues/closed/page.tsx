@@ -25,7 +25,7 @@ export default async function CloseIssuesPage() {
     );
   }
   return (
-    <div className="maincol">
+    <div className="maincol mt-20">
       <table className="border-collapse w-full md:flex md:flex-col">
         {closedIssues.map((issue) => (
           <ClosedIssueItem {...issue} key={issue.id} />
