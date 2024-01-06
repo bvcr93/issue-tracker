@@ -36,9 +36,11 @@ export default async function IssuesPage() {
             <span>({closedIssuesCount})</span>
           </Link>
           <div className="md:w-1/3 h-24 flex items-center justify-center">
-            <Button className="w-full md:w-48">
-              Create New Issue <ArrowBigRight className="ml-5" />
-            </Button>
+            <Link href={"/issues/new"}>
+              <Button className="w-full md:w-48">
+                Create New Issue <ArrowBigRight className="ml-5" />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,29 +1,29 @@
 "use client";
 
 import { createIssueAction } from "@/app/actions/actions";
+import { FormError } from "@/components/form-error";
+import { FormSuccess } from "@/components/form-success";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { toast } from "@/components/ui/use-toast";
-import "easymde/dist/easymde.min.css";
-import { useRouter } from "next/navigation";
-import { useFormStatus } from "react-dom";
-import { createIssueSchema, createIssueSchemaType } from "@/lib/schemas";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { useState } from "react";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { FormError } from "@/components/form-error";
-import { FormSuccess } from "@/components/form-success";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { toast } from "@/components/ui/use-toast";
+import { createIssueSchema, createIssueSchemaType } from "@/lib/schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
+import "easymde/dist/easymde.min.css";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useFormStatus } from "react-dom";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
 export default function NewIssuePage() {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
@@ -57,7 +57,6 @@ export default function NewIssuePage() {
 
       await createIssue(formData);
 
-      console.log(values);
       toast({
         title: "New issue created!",
       });
@@ -68,7 +67,7 @@ export default function NewIssuePage() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="maincol pt-20 min-h-screen"
+        className="maincol pt-20 min-h-screen mx-auto"
       >
         <h1 className="w-full text-center text-3xl text-slate-700">
           Create new issue
@@ -77,7 +76,7 @@ export default function NewIssuePage() {
           control={form.control}
           name="title"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mt-5">
               <FormLabel>Title</FormLabel>
               <FormControl>
                 <Input placeholder="Title" {...field} />
@@ -90,7 +89,7 @@ export default function NewIssuePage() {
           control={form.control}
           name="description"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mt-5">
               <FormLabel>Description</FormLabel>
               <FormControl>
                 <Textarea placeholder="Description" {...field} />

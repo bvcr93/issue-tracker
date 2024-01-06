@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={figtree.className}>
+      <body className={`${figtree.className} bg-slate-50`}>
         <Navbar />
         {children}
         <Toaster />

@@ -1,31 +1,24 @@
-
+import ClosedIssueItem from "@/components/ui/closed-issue-item";
 import { db } from "@/lib/db";
+import { Issue } from "@prisma/client";
 export default async function OpenIssuesPage() {
-  const issues = await db.issue.findMany();
+  const issues: Issue[] = await db.issue.findMany();
   const openIssues = issues.filter((issue) => issue.status === "OPEN");
 
-  
-
+  if (openIssues.length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-3xl">
+        No closed issues to show
+      </div>
+    );
+  }
   return (
-    <form className="maincol">
-      <h1>Open Issues</h1>
-      <table className="border flex bg-gray-100 justify-around items-center flex-col w-full">
-        <thead className="flex w-full justify-around">
-          <tr>
-            <th className="pr-4">Title</th>
-            <th className="pl-4">Description</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody className="flex justify-around w-full">
-          {openIssues.map((issue) => (
-            <tr key={issue.id}>
-              <td>{issue.title}</td>
-              <td>{issue.description}</td>             
-            </tr>
-          ))}
-        </tbody>
+    <div className="maincol">
+      <table className="border-collapse w-full md:flex md:flex-col mt-12">
+        {openIssues.map((issue) => (
+          <ClosedIssueItem {...issue} key={issue.id} />
+        ))}
       </table>
-    </form>
+    </div>
   );
 }
