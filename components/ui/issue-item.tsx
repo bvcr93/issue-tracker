@@ -21,6 +21,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 interface IssueItemProps {
   title: string;
@@ -98,7 +109,7 @@ export function IssueItem({
             </span>
           </p>
         </CardContent>
-        <CardFooter className="flex justify-between w-full">
+        <CardFooter className="flex justify-between w-full gap-5">
           <p className="font-light text-slate-600">
             Created at:{" "}
             {new Date(createdAt).toLocaleDateString("en-US", {
@@ -108,12 +119,23 @@ export function IssueItem({
             })}
           </p>
 
-          <ToggleButton
-            size={"sm"}
-            onClick={handleToggleIssueStatus}
-          >
+          <ToggleButton size={"sm"} onClick={handleToggleIssueStatus}>
             {isClosed ? "Open issue" : "Close issue"}
           </ToggleButton>
+          <Button variant={"outline"} size={"sm"}>
+            <AlertDialog>
+              <AlertDialogTrigger>Details</AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>{title}</AlertDialogTitle>
+                  <AlertDialogDescription>{description}</AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Close</AlertDialogCancel>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </Button>
         </CardFooter>
       </Card>
     </div>

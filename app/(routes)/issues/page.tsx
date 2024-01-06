@@ -4,6 +4,17 @@ import { IssueItem } from "@/components/ui/issue-item";
 import { db } from "@/lib/db";
 import { ArrowBigRight } from "lucide-react";
 import Link from "next/link";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 export default async function IssuesPage() {
   const issues = await db.issue.findMany();
