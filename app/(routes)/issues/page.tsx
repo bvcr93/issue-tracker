@@ -4,17 +4,6 @@ import { IssueItem } from "@/components/ui/issue-item";
 import { db } from "@/lib/db";
 import { ArrowBigRight } from "lucide-react";
 import Link from "next/link";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
 
 export default async function IssuesPage() {
   const issues = await db.issue.findMany();
@@ -34,14 +23,14 @@ export default async function IssuesPage() {
         <div className="w-full md:flex mt-10 grid grid-cols-1 gap-5">
           <Link
             href={"/issues/open"}
-            className="md:w-1/3 rounded-lg bg-white shadow-lg h-24 flex items-center justify-center"
+            className="md:w-1/3 rounded-lg bg-white shadow-lg h-24 flex items-center justify-center hover:shadow-xl duration-200"
           >
             <span className="mr-2">Open Issues</span>{" "}
             <span>({openIssuesCount})</span>
           </Link>
           <Link
             href={"/issues/closed"}
-            className="md:w-1/3 rounded-lg bg-white shadow-lg h-24 flex items-center justify-center"
+            className="md:w-1/3 rounded-lg bg-white shadow-lg h-24 flex items-center justify-center hover:shadow-xl duration-200"
           >
             <span className="mr-2">Closed Issues</span>{" "}
             <span>({closedIssuesCount})</span>

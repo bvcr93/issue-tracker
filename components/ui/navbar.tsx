@@ -3,6 +3,14 @@ import { Menu } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { Bug } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 export default function Navbar() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -30,26 +38,37 @@ export default function Navbar() {
           </Link>
         </div>
         <div className="md:hidden">
-          <Menu className="cursor-pointer" onClick={toggleMobileNav} />
+          <Sheet>
+            <SheetTrigger>
+              <Menu />
+            </SheetTrigger>
+            <SheetContent>
+              <SheetHeader>
+                <SheetTitle>Issue tracker</SheetTitle>
+                <SheetDescription className="flex flex-col font-semibold text-lg">
+                  <Link href={"/issues"}>Issues</Link>
+                  <Link href={"/dashboard"}>Dashboard</Link>
+                </SheetDescription>
+              </SheetHeader>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
 
       {/* Mobile Sidebar */}
       {isMobileNavOpen && (
-        <div className="md:hidden fixed top-0 left-0 h-full w-64 bg-white shadow-xl z-50">
-          <div className="flex flex-col items-center py-4 mt-10">
-            <div>Dashboard</div>
-            <Link href={"/issues"}>Statistics</Link>
-          </div>
-        </div>
-      )}
-
-      {/* Overlay for closing the sidebar */}
-      {isMobileNavOpen && (
-        <div
-          className="md:hidden fixed top-0 left-0 h-full w-full z-50"
-          onClick={toggleMobileNav}
-        ></div>
+        <Sheet>
+          <SheetTrigger>Open</SheetTrigger>
+          <SheetContent>
+            <SheetHeader>
+              <SheetTitle>Are you absolutely sure?</SheetTitle>
+              <SheetDescription>
+                This action cannot be undone. This will permanently delete your
+                account and remove your data from our servers.
+              </SheetDescription>
+            </SheetHeader>
+          </SheetContent>
+        </Sheet>
       )}
     </div>
   );

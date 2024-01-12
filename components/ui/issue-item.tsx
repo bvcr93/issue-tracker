@@ -4,15 +4,16 @@ import {
   togleIssueStatusAction,
   updateIssueAction,
 } from "@/app/actions/actions";
-import Link from "next/link";
-import { useState } from "react";
-import { Button } from "./button";
-import { useToast } from "./use-toast";
-import { Edit, X } from "lucide-react";
-import { Input } from "./input";
-import { Textarea } from "./textarea";
-import { Status } from "@prisma/client";
-import useEdit from "@/app/hooks/useEdit";
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger
+} from "@/components/ui/alert-dialog";
 import {
   Card,
   CardContent,
@@ -21,17 +22,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+import { Status } from "@prisma/client";
+import { useState } from "react";
+import { Button } from "./button";
+import { Input } from "./input";
+import { Textarea } from "./textarea";
+import { useToast } from "./use-toast";
 
 interface IssueItemProps {
   title: string;
